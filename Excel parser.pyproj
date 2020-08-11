@@ -27,6 +27,7 @@
     <Content Include="all.xlsx" />
     <Content Include="GeneratedFromExcel.js" />
     <Content Include="index.html" />
+    <Content Include="out.txt" />
     <Content Include="Script.js" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
