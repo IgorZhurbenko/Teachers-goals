@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<meta name="http-equiv" content="Content-type: text/html; charset=UTF-8">
+
+<html>
+
+<head>
+    <title>
+        Конструктор педагогических целей
+    </title>
+    <!--<meta charset="utf-8" />-->
+    <title></title>
+    <script src="script.js"></script>
+    <script src="generatedfromexcel.js" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script>
+        function findLevel(arr, level) {
+            for (var subjLevel of arr) {
+                if (subjLevel['level'].replace('-', '__') == level.replace('-', '__')) { return subjLevel; }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <script>
+
+<a href="index.html">index.html</a>
+
+    </script>
+
+    <!--<table class="table">
+        <tbody>-->
+            <div align="center">
+                <h3 style="position:center">Выберите предмет: </h3>
+                <select id="subjectSelect" style="position:center; text-align:center" onchange="selectSubject()">
+                </select>
+            </div>
+
+            <div align="center">
+                <h3 style="position:center" id="levelSelectLabel" hidden>Выберите уровень педагогического мастерства: </h3>
+                <select id="levelSelect" style="position:center; text-align:center" hidden>
+                </select>
+            </div>
+
+            <div id="mainContainer" style="margin-top: 150px">
+            </div>
+        <!--</tbody>
+    </table>-->
+    <script>
+
+        var subject = '';
+
+        for (var subj of SubjectsList) {
+            var newSubj = document.createElement('option');
+            newSubj.value = subj.replace(' ', '');
+            newSubj.innerHTML = normalizeString(subj);
+            document.getElementById('subjectSelect').appendChild(newSubj);
+        }
+
+        var subjectInfo = {};
+
+        function selectSubject() {
+
+            subject = document.getElementById('subjectSelect').options[document.getElementById('subjectSelect').selectedIndex].value;
+            subjectInfo = SubjectsInfoJson[subject];
+
+            var container = document.getElementById('levelSelect');
+
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            for (var subj of subjectInfo) {
+                var newLevel = document.createElement('option');
+                newLevel.innerHTML = normalizeString(subj['level']);
+                newLevel.value = subj['level'].replace(' ','_');
+                document.getElementById('levelSelect').appendChild(newLevel);
+            }
+
+            document.getElementById('levelSelect').hidden = !subject;
+            document.getElementById('levelSelectLabel').hidden = !subject;
+
+            document.getElementById('levelSelect').onchange = function () {
+                chosenLevel = document.getElementById('levelSelect').options[document.getElementById('levelSelect').selectedIndex].value;
+
+                var container = document.getElementById('mainContainer');
+
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+
+                new OptionsLine([findLevel(subjectInfo, chosenLevel)['problems'],
+                findLevel(subjectInfo, chosenLevel)['methods'],
+                findLevel(subjectInfo, chosenLevel)['tools'],
+                findLevel(subjectInfo, chosenLevel)['indicators']], document.getElementById('mainContainer'), headers, ['через', 'на основе']);
+            }
+
+        }
+
+        var headers = ['Проблема', 'Методический инструмент',
+            'Инструмент ИКТ',
+            'Индикаторы решения проблемы / достижения цели'];
+
+
+
+
+    </script>
+</body>
+</html>
