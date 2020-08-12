@@ -23,7 +23,8 @@
             background-attachment: fixed; /* Фон страницы фиксируется */
             background-repeat: no-repeat; /* Изображение повторяется по горизонтали */
             min-width: 100%;
-            min-height:100%;
+            min-height: 100%;
+            background-size:100%
         }
     </style>
 
@@ -96,100 +97,145 @@
 
 <body>
     <script>
+        function switchPages()
+        {
+            document.getElementById('description').hidden = !document.getElementById('description').hidden;
+            document.getElementById('constructor').hidden = !document.getElementById('constructor').hidden;
 
+            var button = document.getElementById('pageSwitcher');
+
+            button.innerHTML = String(button.innerHTML).indexOf('кальк')? 'Описание' : "Онлайн конструктор"; 
+            
+        }
 
 
     </script>
     <!--<div style="        overflow: hidden;
-        position: relative;
-        width: 100%;
-        align-content:center" class="row">
-        <img src="im.jpg" class="img-fluid" style="        height: 500px;
-        margin: 0; width: 100%; margin-left:0%; margin-right:0%
-">
-    </div>-->
-    
-
+            position: relative;
+            width: 100%;
+            align-content:center" class="row">
+            <img src="im.jpg" class="img-fluid" style="        height: 500px;
+            margin: 0; width: 100%; margin-left:0%; margin-right:0%
+    ">
+        </div>-->
     <!--<table class="table">
         <tbody>-->
-    <div align="center">
-        <h3 style="position:center">Выберите предмет: </h3>
-        <select id="subjectSelect" style="position:center; text-align:center" onchange="selectSubject()">
-            <option value=""></option>
-        </select>
-    </div>
 
     <div align="center">
-        <h3 style="position:center" id="levelSelectLabel" hidden>Выберите уровень педагогического мастерства: </h3>
-        <select id="levelSelect" style="position:center; text-align:center" hidden>
-            <option value=""></option>
-        </select>
+        <h2 style="align-content:center">Конструктор «ЦЕЛЬ ПРОФЕССИОНАЛЬНОГО РАЗВИТИЯ»</h2>
     </div>
 
-    <div id="mainContainer" style="margin-top: 150px">
-    </div>
-    <!--</tbody>
-    </table>-->
-    <script>
+    <button style="margin-left:3%" onclick="switchPages()" page="0" id="pageSwitcher">
+        Онлайн конструктор
+    </button>
 
-        var subject = '';
+    <div id="constructor" hidden>
+        <div align="center">
+            <h3 style="position:center">Выберите предмет: </h3>
+            <select id="subjectSelect" style="position:center; text-align:center" onchange="selectSubject()">
+                <option value=""></option>
+            </select>
+        </div>
 
-        for (var subj of SubjectsList) {
-            var newSubj = document.createElement('option');
-            newSubj.value = subj.replace(' ', '');
-            newSubj.innerHTML = normalizeString(subj);
-            document.getElementById('subjectSelect').appendChild(newSubj);
-        }
+        <div align="center">
+            <h3 style="position:center" id="levelSelectLabel" hidden>Выберите уровень педагогического мастерства: </h3>
+            <select id="levelSelect" style="position:center; text-align:center" hidden>
+                <option value=""></option>
+            </select>
+        </div>
 
-        var subjectInfo = {};
+        <div id="mainContainer" style="margin-top: 150px">
+        </div>
+        <!--</tbody>
+        </table>-->
+        <script>
 
-        function selectSubject() {
+            var subject = '';
 
-            subject = document.getElementById('subjectSelect').options[document.getElementById('subjectSelect').selectedIndex].value;
-            subjectInfo = SubjectsInfoJson[subject];
-
-            var container = document.getElementById('levelSelect');
-
-            while (container.firstChild) {
-                container.removeChild(container.firstChild);
+            for (var subj of SubjectsList) {
+                var newSubj = document.createElement('option');
+                newSubj.value = subj.replace(' ', '');
+                newSubj.innerHTML = normalizeString(subj);
+                document.getElementById('subjectSelect').appendChild(newSubj);
             }
 
-            var newLevel = document.createElement('option');
-            newLevel.innerHTML = '';
-            newLevel.value = '';
-            document.getElementById('levelSelect').appendChild(newLevel);
+            var subjectInfo = {};
 
-            for (var subj of subjectInfo) {
-                var newLevel = document.createElement('option');
-                newLevel.innerHTML = normalizeString(subj['level']);
-                newLevel.value = subj['level'].replace(' ', '_');
-                document.getElementById('levelSelect').appendChild(newLevel);
-            }
+            function selectSubject() {
 
-            document.getElementById('levelSelect').hidden = !subject;
-            document.getElementById('levelSelectLabel').hidden = !subject;
+                subject = document.getElementById('subjectSelect').options[document.getElementById('subjectSelect').selectedIndex].value;
+                subjectInfo = SubjectsInfoJson[subject];
 
-            document.getElementById('levelSelect').onchange = function () {
-                chosenLevel = document.getElementById('levelSelect').options[document.getElementById('levelSelect').selectedIndex].value;
-
-                var container = document.getElementById('mainContainer');
+                var container = document.getElementById('levelSelect');
 
                 while (container.firstChild) {
                     container.removeChild(container.firstChild);
                 }
 
-                new OptionsLine([findLevel(subjectInfo, chosenLevel)['problems'],
-                findLevel(subjectInfo, chosenLevel)['methods'],
-                findLevel(subjectInfo, chosenLevel)['tools'],
-                findLevel(subjectInfo, chosenLevel)['indicators']], document.getElementById('mainContainer'), headers, ['через', 'на основе']);
+                var newLevel = document.createElement('option');
+                newLevel.innerHTML = '';
+                newLevel.value = '';
+                document.getElementById('levelSelect').appendChild(newLevel);
+
+                for (var subj of subjectInfo) {
+                    var newLevel = document.createElement('option');
+                    newLevel.innerHTML = normalizeString(subj['level']);
+                    newLevel.value = subj['level'].replace(' ', '_');
+                    document.getElementById('levelSelect').appendChild(newLevel);
+                }
+
+                document.getElementById('levelSelect').hidden = !subject;
+                document.getElementById('levelSelectLabel').hidden = !subject;
+
+                document.getElementById('levelSelect').onchange = function () {
+                    chosenLevel = document.getElementById('levelSelect').options[document.getElementById('levelSelect').selectedIndex].value;
+
+                    var container = document.getElementById('mainContainer');
+
+                    while (container.firstChild) {
+                        container.removeChild(container.firstChild);
+                    }
+
+                    new OptionsLine([findLevel(subjectInfo, chosenLevel)['problems'],
+                    findLevel(subjectInfo, chosenLevel)['methods'],
+                    findLevel(subjectInfo, chosenLevel)['tools'],
+                    findLevel(subjectInfo, chosenLevel)['indicators']], document.getElementById('mainContainer'), headers, ['через', 'на основе']);
+                }
+
             }
 
+            var headers = ['Проблема', 'Методический инструмент',
+                'Инструмент ИКТ',
+                'Индикаторы решения проблемы / достижения цели'];
+        </script>
+    </div>
+
+    <style>
+        p {
+            justify-content:left;
+            width:80%;
+            font-size:larger
         }
+</style>
 
-        var headers = ['Проблема', 'Методический инструмент',
-            'Инструмент ИКТ',
-            'Индикаторы решения проблемы / достижения цели'];
-    </script>
+    <div id="description" style="margin-left:5%" class="row">
 
+        <p>Цель: содействие педагогам в формулировании цели профессионального развития </p>
+        <p>           Описание: </p>
+        <p>          На протяжении всей своей педагогической деятельности учитель сталкивается с вызовами. Это потребность в освоении новых теоретических знаний, потому что наука не стоит на мете, и необходимо изучать соответствующую литературу, интернет ресурсы, чтобы быть в потоке. Это желание освоить новые подходы, методы и приемы работы, чтобы преподавание было эффективным, обучение учащихся продуктивным. Это поиск новых взаимоотношений с коллегами в профессиональном сообществе не только внутри школы, но и за ее пределами. Как управлять собственным профессиональным развитием, если нет конкретной цели? Какой должна быть цель и как ее сформулировать?</p>
+        <p>          Конструктор поможет Вам сформулировать цель профессионального развития, если Вы уже проанализировали свой предыдущий опыт и представляете себе проблему, на которой необходимо сфокусироваться, чтобы профессионально расти.</p>
+        <p>          Инструкция:</p>
+        <p>         1.	В поле «Предмет» выберите предмет преподавания.</p>
+        <p>      2.	В поле «Уровень педагогического мастерства» выберите уровень, на который Вы претендуете.</p>
+        <p>   3.	В поле «Проблема» выберите проблему, которую необходимо решить в учебном году.</p>
+        <p>    4.	В поле «Методический инструмент» выберите инструмент, который является наиболее подходящим для решения проблемы.</p>
+        <p>   5.	В поле «Инструмент ИКТ» выберите инструмент, который будет способствовать решению проблемы и достижению цели в формате дистанционного обучения.</p>
+        <p> После выполнения 5 шагов Вы получите сформулированную цель профессионального развития и индикаторы достижения данной цели.</p>
+        <p> P.S. Если Вы не найдете свою проблему в списке предложенных, оцените, действительно ли она соответствует уровню педагогического мастерства, который Вы указали. Если соответствует, то воспользуйтесь предложенным алгоритмом формулирования цели профессионального развития и попробуйте это сделать самостоятельно.</p>
+
+        <p>            Авторы: Вилкова Н.Ю., Шпара И.В., Филиал «Центр педагогических измерений» АОО «Назарбаев Интеллектуальные школы»</p>
+        <p>         Программное обеспечение: Журбенко И.А.</p>
+
+    </div>
 </body>
 </html>

@@ -22,12 +22,12 @@ function determineIndicatorsVisibility(optionsLine)
     {
         if (!optionsLine['_' + String(i)].Value)
         {
-            indicatorsList.hidden = true;
+            indicatorsContainer.hidden = true;
             return false;
         }
         i++;
     }
-    indicatorsList.hidden = false;
+    indicatorsContainer.hidden = false;
     return true;
 }
 
@@ -63,6 +63,7 @@ class Options {
 
         var label = document.createElement('p');
         label.innerHTML = name + ' ';
+        label.style.color = 'white';
         this.label = label;
 
         newColumn.appendChild(label);
@@ -155,7 +156,7 @@ class OptionsLine {
                         }
 
                         this.problemsInfo = OptionsList[0];
-                        window.indicators = this.problemsInfo[this.selectedIndex]['indicators'];
+                        window.indicators = this.problemsInfo[this.selectedIndex-1]['indicators'];
 
                         while (window.indicatorsList.firstChild) {
                             window.indicatorsList.removeChild(window.indicatorsList.firstChild);
@@ -183,8 +184,19 @@ class OptionsLine {
         this.signature.style.textAlign = 'center';
         appendTo.appendChild(this.signature);
 
+        window.indicatorsContainer = document.createElement('div');
+        window.indicatorsContainer.style.marginLeft = '40px';
+        var indicatorsLabel = document.createElement('p');
+        indicatorsLabel.innerHTML = 'Индикаторы достижения цели профессионального развития:';
+        
+        window.indicatorsContainer.appendChild(indicatorsLabel);
+        
         window.indicatorsList = document.createElement('ul');
-        appendTo.appendChild(window.indicatorsList);
+        window.indicatorsContainer.appendChild(window.indicatorsList);
+        appendTo.appendChild(window.indicatorsContainer);
+
+        determineIndicatorsVisibility(self);
+        
     }
 
     GetValue(index) {
