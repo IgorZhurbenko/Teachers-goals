@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="all.xlsx" />
+    <Content Include="im.jpg" />
     <Content Include="GeneratedFromExcel.js" />
     <Content Include="index.html" />
     <Content Include="out.txt" />
