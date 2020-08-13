@@ -31,6 +31,14 @@ function determineIndicatorsVisibility(optionsLine)
     return true;
 }
 
+function findProblem(problemsInfo, problem)
+{
+    for (var problemInfo of problemsInfo)
+    {
+        if (problemInfo.problem == problem) { return problemInfo;}
+    }
+}
+
 class Options {
     constructor(optionsGiven, appendTo, onselect, name) {
 
@@ -156,7 +164,7 @@ class OptionsLine {
                         }
 
                         this.problemsInfo = OptionsList[0];
-                        window.indicators = this.problemsInfo[this.selectedIndex-1]['indicators'];
+                        window.indicators = findProblem(this.problemsInfo, this.options[this.selectedIndex].innerHTML)['indicators'];
 
                         while (window.indicatorsList.firstChild) {
                             window.indicatorsList.removeChild(window.indicatorsList.firstChild);
