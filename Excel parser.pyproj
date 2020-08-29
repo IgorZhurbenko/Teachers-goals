@@ -26,19 +26,28 @@
     <Compile Include="Excel_parser.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aboutConstructor.js" />
     <Content Include="all.xlsx" />
-    <Content Include="im.jpg" />
+    <Content Include="old and unused\Components.js" />
+    <Content Include="design\im.jpg" />
     <Content Include="GeneratedFromExcel.js" />
     <Content Include="index.html" />
-    <Content Include="out.txt" />
-    <Content Include="Script.js" />
-    <Content Include="Tools.js" />
+    <Content Include="old and unused\OldScript.js" />
+    <Content Include="old and unused\out.txt" />
+    <Content Include="old and unused\Script.js" />
+    <Content Include="design\Styles.css" />
+    <Content Include="tools.js" />
     <Content Include="vue.js" />
-    <Content Include="VueTest.html" />
+    <Content Include="VueModel.js" />
+    <Content Include="old and unused\VueTest.html" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.7" />
     <InterpreterReference Include="Global|PythonCore|3.7-32" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="design\" />
+    <Folder Include="old and unused\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

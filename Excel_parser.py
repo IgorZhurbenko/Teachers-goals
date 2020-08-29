@@ -81,11 +81,11 @@ while (str(doc['A' + str(currentline)].value).count('/') < 5):
 
 a = open('generatedfromexcel.js', 'w')
 
-filecontent = 'SubjectsList = []; \n SubjectsInfoJson = {}; \n'
+filecontent = 'SubjectsList = []; \n SubjectsInfo = {}; \n'
 
 for subj in res:
-    filecontent += 'SubjectsInfoJson[' + '"' + subj['subject'].replace('-','__') + '".split(" ").join("_")' + '] = ' + str(subj['levels']).replace('-','__') + '\n'
-    filecontent += 'SubjectsList.push(' + '"' + subj['subject'].replace('-','__') + '".split(" ").join("_")' + '); \n\n\n'
+    filecontent += 'SubjectsInfo[' + "'" + subj['subject'] + '\'] = ' + str(subj['levels']) + '\n'
+    filecontent += 'SubjectsList.push(' + '\'' + subj['subject'] + '\'); \n\n\n'
 
 a.write(filecontent)
 a.close()
