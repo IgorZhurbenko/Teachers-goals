@@ -21,13 +21,13 @@
         <h2 style="align-content:center; color:whitesmoke">Конструктор «ЦЕЛЬ ПРОФЕССИОНАЛЬНОГО РАЗВИТИЯ»</h2>
     </div>
 
-    <div id="app" style="color: whitesmoke">
+    <div id="app" style="color: whitesmoke; margin-left:5%">
 
         <button style="margin-left:3%" v-for="(page, index) in pages" v-on:click="activePage = index">
             {{page.title}}
         </button>
 
-        <div id="page0" style="margin-left:5%" class="row" v-if="activePage == 0">
+        <div id="page0" class="row" v-if="activePage == 0">
             <p v-for="line in pages[0].data">{{line}}</p>
         </div>
 
