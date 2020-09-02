@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b7867655-973e-4030-a3a1-dda09f2d6007</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Excel_parser.py</StartupFile>
+    <StartupFile>Data\Excel_parser.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,20 +23,21 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Excel_parser.py" />
+    <Compile Include="Data\Excel_parser.py" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="aboutConstructor.js" />
-    <Content Include="all.xlsx" />
+    <Content Include="Data\aboutConstructor.js" />
+    <Content Include="Data\all.xlsx" />
     <Content Include="old and unused\Components.js" />
     <Content Include="design\im.jpg" />
-    <Content Include="GeneratedFromExcel.js" />
+    <Content Include="Data\GeneratedFromExcel.js" />
     <Content Include="index.html" />
     <Content Include="old and unused\OldScript.js" />
     <Content Include="old and unused\out.txt" />
     <Content Include="old and unused\Script.js" />
     <Content Include="design\Styles.css" />
-    <Content Include="tools.js" />
+    <Content Include="scripts.js" />
+    <Content Include="Data\tools.js" />
     <Content Include="vue.js" />
     <Content Include="VueModel.js" />
     <Content Include="old and unused\VueTest.html" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="design\" />
+    <Folder Include="Data\" />
     <Folder Include="old and unused\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

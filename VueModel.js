@@ -26,13 +26,13 @@ var app = new Vue(
         },
         computed: {
             subjects: function () {
-                return this.subjectsList
+                return allCapitalise(this.subjectsList);
             },
             levels: function () {
                 return !!this.chosenSubject ? this.subjectsInfo[this.chosenSubject] : []
             },
             chosenLevel: function () {
-                return this.chosenSubject && this.chosenLevelIndex ? this.subjectsInfo[this.chosenSubject][this.chosenLevelIndex] : null;
+                return this.chosenSubject && (this.chosenLevelIndex || this.chosenLevelIndex === 0) ? this.subjectsInfo[this.chosenSubject][this.chosenLevelIndex] : null;
             },
             methods: function () {
                 return !!this.chosenLevel ? this.chosenLevel.methods : []
