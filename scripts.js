@@ -5,6 +5,7 @@ var firstLetterToUpperCase = function (str)
 
 var allCapitalise = function(arr)
 {
+    return arr;
     let res = []
     for (let str of arr) {
         res.push(firstLetterToUpperCase(str))
