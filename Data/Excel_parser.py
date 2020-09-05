@@ -14,7 +14,7 @@ def addIfNotEmpty(arr : list, string : str):
         arr.append(string.strip())
 
 
-wb = openpyxl.load_workbook('./all.xlsx')
+wb = openpyxl.load_workbook('data\\all.xlsx')
 doc = wb.get_sheet_by_name('all')
 
 currentline = 3
@@ -34,7 +34,7 @@ def line():
 
 while (str(doc['A' + str(currentline)].value).count('/') < 5):
     obj0 = {}
-    obj0['subject'] = doc['A' + str(currentline)].value
+    obj0['subject'] = str(doc['A' + str(currentline)].value).capitalize()
     obj0['levels'] = []
     while (str(doc['A' + str(currentline)].value).count('*') < 1):
         obj1 = {}
@@ -79,13 +79,15 @@ while (str(doc['A' + str(currentline)].value).count('/') < 5):
     
 #print(res[0])
 
-a = open('generatedfromexcel.js', 'w')
+a = open('data\\generatedfromexcel.js', 'w', encoding='windows-1251')
+
 
 filecontent = 'SubjectsList = []; \n SubjectsInfo = {}; \n'
 
 for subj in res:
     filecontent += 'SubjectsInfo[' + "'" + subj['subject'] + '\'] = ' + str(subj['levels']) + '\n'
     filecontent += 'SubjectsList.push(' + '\'' + subj['subject'] + '\'); \n\n\n'
+
 
 a.write(filecontent)
 a.close()
